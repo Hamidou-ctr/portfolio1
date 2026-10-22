@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
@@ -6,7 +6,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-privacy-policy',
-    imports: [CommonModule, TranslateModule],
+    imports: [TranslateModule],
     templateUrl: './privacy-policy.component.html',
     styleUrl: './privacy-policy.component.scss'
 })

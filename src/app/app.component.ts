@@ -1,5 +1,5 @@
 import { Component, HostListener } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterOutlet, Router, ActivatedRoute } from '@angular/router';
 import { AfterViewInit } from '@angular/core';
 import { HeaderComponent } from "./header/header.component";
@@ -14,7 +14,7 @@ import * as AOS from 'aos';
 
 @Component({
     selector: 'app-root',
-    imports: [CommonModule, RouterOutlet, HeaderComponent, HomePageComponent, AboutMeComponent, MySkillsComponent, PortfolioComponent, ContactMeComponent, FooterComponent],
+    imports: [RouterOutlet, HeaderComponent, HomePageComponent, AboutMeComponent, MySkillsComponent, PortfolioComponent, ContactMeComponent, FooterComponent],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss'
 })

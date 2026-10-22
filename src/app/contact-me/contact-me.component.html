@@ -1,4 +1,4 @@
-<header id="contact-section"  data-aos="fade-down"> 
+<header id="contact-section"  data-aos="fade-down">
   <p></p>
   <h1>{{ "ContactComponent.contact" | translate }}</h1>
 </header>
@@ -24,7 +24,7 @@
       #contactForm="ngForm"
 
       data-aos="fade-up"
-    >
+      >
       <div class="contact-form__inputs">
         <div class="input-container">
           <input
@@ -40,30 +40,30 @@
             name="name"
             required
             #name="ngModel"
-          />
+            />
           <span
             class="checkbox"
             [ngClass]="{
               'checkbox--valid': name.valid && name.touched,
               'checkbox--invalid': !name.valid && name.touched
             }"
-          >
+            >
             <img
               class="check-valid-img"
               src="assets/img/done_contact_my.png"
               alt=""
-            />
+              />
             <img
               class="check-error-img"
               src="assets/img/error_contact_my.png"
               alt=""
-            />
+              />
           </span>
         </div>
         @if(!name.valid && name.touched){
-        <span class="contact-form__error">
-          {{ "ContactComponent.name_error" | translate }}
-        </span>
+          <span class="contact-form__error">
+            {{ "ContactComponent.name_error" | translate }}
+          </span>
         }
 
         <div class="input-container">
@@ -81,30 +81,30 @@
             pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"
             #email="ngModel"
             required
-          />
+            />
           <span
             class="checkbox"
             [ngClass]="{
               'checkbox--valid': email.valid && email.touched,
               'checkbox--invalid': !email.valid && email.touched
             }"
-          >
+            >
             <img
               class="check-valid-img"
               src="assets/img/done_contact_my.png"
               alt=""
-            />
+              />
             <img
               class="check-error-img"
               src="assets/img/error_contact_my.png"
               alt=""
-            />
+              />
           </span>
         </div>
         @if(!email.valid && email.touched){
-        <span class="contact-form__error">
-          {{ "ContactComponent.email_error" | translate }}
-        </span>
+          <span class="contact-form__error">
+            {{ "ContactComponent.email_error" | translate }}
+          </span>
         }
 
         <div class="input-container textarea-container">
@@ -130,23 +130,23 @@
               'checkbox--valid': message.valid && message.touched,
               'checkbox--invalid': !message.valid && message.touched
             }"
-          >
+            >
             <img
               class="check-valid-img"
               src="assets/img/done_contact_my.png"
               alt=""
-            />
+              />
             <img
               class="check-error-img"
               src="assets/img/error_contact_my.png"
               alt=""
-            />
+              />
           </span>
         </div>
         @if(!message.valid && message.touched){
-        <span class="contact-form__error">
-          {{ "ContactComponent.message_error" | translate }}
-        </span>
+          <span class="contact-form__error">
+            {{ "ContactComponent.message_error" | translate }}
+          </span>
         }
       </div>
 
@@ -161,25 +161,27 @@
               (ngModelChange)="onPrivacyChange($event, privacy)"
               required
               #privacy="ngModel"
-            />
+              />
             <label for="privacy">
               <div>
-                <img
-                  class="clickable"
-                  *ngIf="contactData.privacy"
-                  src="assets/img/checked.png"
-                  alt="Checked"
-                />
-                <img
-                  class="clickable"
-                  *ngIf="!contactData.privacy"
-                  src="assets/img/default.png"
-                  alt="Unchecked"
-                />
+                @if (contactData.privacy) {
+                  <img
+                    class="clickable"
+                    src="assets/img/checked.png"
+                    alt="Checked"
+                    />
+                }
+                @if (!contactData.privacy) {
+                  <img
+                    class="clickable"
+                    src="assets/img/default.png"
+                    alt="Unchecked"
+                    />
+                }
               </div>
               <span>
                 {{
-                  "ContactComponent.privacy_policy_acknowledgment" | translate
+                "ContactComponent.privacy_policy_acknowledgment" | translate
                 }}
                 <a routerLink="/privacy-policy" class="privacy-link">
                   {{ "ContactComponent.privacy_policy" | translate }}
@@ -189,9 +191,9 @@
             </label>
           </div>
           @if(privacy.invalid && privacy.touched){
-          <span class="contact-form__error">
-            {{ "ContactComponent.privacy_policy_error" | translate }}
-          </span>
+            <span class="contact-form__error">
+              {{ "ContactComponent.privacy_policy_error" | translate }}
+            </span>
           }
         </div>
       </div>
@@ -206,8 +208,8 @@
         data-aos="flip-left"
         data-aos-easing="ease-out-cubic"
         data-aos-duration="2000"
-        
-      >
+
+        >
         {{ "ContactComponent.send_button" | translate }}
       </button>
     </form>
@@ -217,19 +219,19 @@
     class="go_up_button clickable"
     src="assets/img/4. go_up_button.png"
     alt=""
-  />
-<!--   <div class="green-line"></div> -->
+    />
+  <!--   <div class="green-line"></div> -->
 
   <div
     id="successfully-sent-message-popup"
     [class.visible]="showPopup"
     [class.error]="isErrorPopup"
-  >
+    >
     <p>
       {{
-        isErrorPopup
-          ? ("ContactComponent.erorr-message_sent" | translate)
-          : ("ContactComponent.message_sent_success" | translate)
+      isErrorPopup
+      ? ("ContactComponent.erorr-message_sent" | translate)
+      : ("ContactComponent.message_sent_success" | translate)
       }}
     </p>
   </div>

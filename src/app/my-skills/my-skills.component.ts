@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { service } from '../service/service.component';
 import { TranslateModule } from '@ngx-translate/core';
@@ -6,7 +6,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-my-skills',
-    imports: [CommonModule, TranslateModule],
+    imports: [TranslateModule],
     templateUrl: './my-skills.component.html',
     styleUrl: './my-skills.component.scss'
 })
