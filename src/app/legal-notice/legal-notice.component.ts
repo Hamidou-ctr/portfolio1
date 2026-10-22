@@ -1,5 +1,5 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Location } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -7,6 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-legal-notice',
     imports: [TranslateModule],
     templateUrl: './legal-notice.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './legal-notice.component.scss'
 })
 export class LegalNoticeComponent implements OnInit {

@@ -1,5 +1,5 @@
 
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
 import { service } from '../service/service.component';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -8,6 +8,7 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-my-skills',
     imports: [TranslateModule],
     templateUrl: './my-skills.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './my-skills.component.scss'
 })
 export class MySkillsComponent {

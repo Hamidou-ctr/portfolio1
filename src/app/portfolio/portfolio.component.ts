@@ -1,5 +1,5 @@
 
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ProjectComponent } from './project/project.component';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -7,6 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-portfolio',
     imports: [ProjectComponent, TranslateModule],
     templateUrl: './portfolio.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './portfolio.component.scss'
 })
 export class PortfolioComponent {

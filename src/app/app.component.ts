@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, ChangeDetectionStrategy } from '@angular/core';
 
 import { RouterOutlet, Router, ActivatedRoute } from '@angular/router';
 import { AfterViewInit } from '@angular/core';
@@ -16,6 +16,7 @@ import * as AOS from 'aos';
     selector: 'app-root',
     imports: [RouterOutlet, HeaderComponent, HomePageComponent, AboutMeComponent, MySkillsComponent, PortfolioComponent, ContactMeComponent, FooterComponent],
     templateUrl: './app.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './app.component.scss'
 })
 export class AppComponent implements AfterViewInit {

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import { Router } from '@angular/router';
 
@@ -10,6 +10,7 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-header',
     imports: [CommonModule, TranslateModule],
     templateUrl: './header.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
