@@ -1,44 +1,45 @@
 <div class="overlay">
-  <section
-    *ngFor="let project of projects; let i = index"
-    [ngClass]="{ left: i % 2 === 0, right: i % 2 !== 0 }"
-  >
-    <img
-      [src]="project.imageUrl"
-      alt="{{ project.name }}"
-      data-aos="flip-left"
-      data-aos-easing="ease-out-cubic"
-      data-aos-duration="1000"
-    />
-    <div
-      class="project-content"
-      data-aos="fade-up"
-      data-aos-anchor-placement="center-up"
-    >
-      <h1>{{ project.name | translate }}</h1>
-      <h4>{{ project.language }}</h4>
-      <p>{{ project.description | translate }}</p>
-      <span
+  @for (project of projects; track project; let i = $index) {
+    <section
+      [ngClass]="{ left: i % 2 === 0, right: i % 2 !== 0 }"
+      >
+      <img
+        [src]="project.imageUrl"
+        alt="{{ project.name }}"
         data-aos="flip-left"
         data-aos-easing="ease-out-cubic"
         data-aos-duration="1000"
-      >
-        <a
-          target="_blank"
-          [href]="project.liveTestUrl"
-          class="project-link"
-          [ngClass]="{ test: true }"
+        />
+      <div
+        class="project-content"
+        data-aos="fade-up"
+        data-aos-anchor-placement="center-up"
         >
-          {{ "ProjectsComponent.live_test_button" | translate }}
-        </a>
-        <a
-          target="_blank"
-          [href]="project.githubUrl"
-          class="project-link"
-          [ngClass]="{ GitHub: true }"
-          >GitHub</a
-        >
-      </span>
-    </div>
-  </section>
-</div>
+        <h1>{{ project.name | translate }}</h1>
+        <h4>{{ project.language }}</h4>
+        <p>{{ project.description | translate }}</p>
+        <span
+          data-aos="flip-left"
+          data-aos-easing="ease-out-cubic"
+          data-aos-duration="1000"
+          >
+          <a
+            target="_blank"
+            [href]="project.liveTestUrl"
+            class="project-link"
+            [ngClass]="{ test: true }"
+            >
+            {{ "ProjectsComponent.live_test_button" | translate }}
+          </a>
+          <a
+            target="_blank"
+            [href]="project.githubUrl"
+            class="project-link"
+            [ngClass]="{ GitHub: true }"
+            >GitHub</a
+            >
+          </span>
+        </div>
+      </section>
+    }
+  </div>

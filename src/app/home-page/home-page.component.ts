@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-home-page',
-    imports: [CommonModule, TranslateModule],
+    imports: [TranslateModule],
     templateUrl: './home-page.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './home-page.component.scss'
 })
 export class HomePageComponent {

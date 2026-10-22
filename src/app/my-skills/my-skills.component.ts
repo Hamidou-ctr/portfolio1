@@ -1,13 +1,14 @@
-import { CommonModule } from '@angular/common';
-import { Component, ViewChild, ElementRef } from '@angular/core';
+
+import { Component, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
 import { service } from '../service/service.component';
 import { TranslateModule } from '@ngx-translate/core';
 
 
 @Component({
     selector: 'app-my-skills',
-    imports: [CommonModule, TranslateModule],
+    imports: [TranslateModule],
     templateUrl: './my-skills.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './my-skills.component.scss'
 })
 export class MySkillsComponent {

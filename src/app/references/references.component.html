@@ -1,27 +1,31 @@
 <div #refereceSection class="container">
-  <section *ngFor="let section of sections; let i = index" [ngClass]="{'active': currentIndex === i}">
-    <main>
-      <img src="assets/img/purple_reference.png" alt="">
-      <span>{{ section.text }}</span>
+  @for (section of sections; track section; let i = $index) {
+    <section [ngClass]="{'active': currentIndex === i}">
+      <main>
+        <img src="assets/img/purple_reference.png" alt="">
+        <span>{{ section.text }}</span>
+        <div>
+          <h1>{{ section.title }}</h1>
+          <p>{{ section.author }}</p>
+        </div>
+      </main>
       <div>
-        <h1>{{ section.title }}</h1>
-        <p>{{ section.author }}</p>
+        <img [src]="section.profileImage" alt="" />
+        <h2>{{ section.name }}</h2>
       </div>
-    </main>
-    <div>
-      <img [src]="section.profileImage" alt="" />
-      <h2>{{ section.name }}</h2>
-    </div>
-  </section>
+    </section>
+  }
 </div>
 
 <menu>
   <img src="assets/img/left.png" alt="" (click)="previousSection()" [ngClass]="{'disabled': currentIndex === 0}" />
-  <p *ngFor="let section of sections; let i = index" [ngClass]="{'active': currentIndex === i}"></p>
-  <img 
-    src="assets/img/right.png" 
-    alt="" 
-    (click)="nextSection()" 
-    [ngClass]="{'disabled': currentIndex === sections.length - 1}" 
-  />
+  @for (section of sections; track section; let i = $index) {
+    <p [ngClass]="{'active': currentIndex === i}"></p>
+  }
+  <img
+    src="assets/img/right.png"
+    alt=""
+    (click)="nextSection()"
+    [ngClass]="{'disabled': currentIndex === sections.length - 1}"
+    />
 </menu>

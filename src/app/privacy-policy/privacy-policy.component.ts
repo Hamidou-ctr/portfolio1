@@ -1,13 +1,14 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Location } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 
 
 @Component({
     selector: 'app-privacy-policy',
-    imports: [CommonModule, TranslateModule],
+    imports: [TranslateModule],
     templateUrl: './privacy-policy.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './privacy-policy.component.scss'
 })
 export class PrivacyPolicyComponent implements OnInit {

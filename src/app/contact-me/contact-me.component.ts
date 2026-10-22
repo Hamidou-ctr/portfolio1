@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterLink } from '@angular/router';
@@ -9,6 +9,7 @@ import { RouterLink } from '@angular/router';
   selector: 'app-contact-me',
   imports: [CommonModule, TranslateModule, FormsModule, RouterLink],
   templateUrl: './contact-me.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./contact-me.component.scss'],
 })
 export class ContactMeComponent {

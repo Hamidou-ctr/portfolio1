@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ViewChild, ElementRef } from '@angular/core';
 import { service } from '../service/service.component';
@@ -7,6 +7,7 @@ import { service } from '../service/service.component';
     selector: 'app-references',
     imports: [CommonModule],
     templateUrl: './references.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './references.component.scss'
 })
 export class ReferencesComponent {

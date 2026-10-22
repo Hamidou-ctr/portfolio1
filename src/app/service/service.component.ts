@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
     selector: 'app-service',
     imports: [],
     templateUrl: './service.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './service.component.scss'
 })
 

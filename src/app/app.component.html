@@ -2,15 +2,25 @@
 
 <router-outlet></router-outlet>
 
-<app-home-page *ngIf="!isSpecialPage()"></app-home-page>
-<app-about-me *ngIf="!isSpecialPage()"></app-about-me>
-<app-my-skills *ngIf="!isSpecialPage()"></app-my-skills>
-<app-portfolio *ngIf="!isSpecialPage()"></app-portfolio>
+@if (!isSpecialPage()) {
+  <app-home-page></app-home-page>
+}
+@if (!isSpecialPage()) {
+  <app-about-me></app-about-me>
+}
+@if (!isSpecialPage()) {
+  <app-my-skills></app-my-skills>
+}
+@if (!isSpecialPage()) {
+  <app-portfolio></app-portfolio>
+}
 <!-- <app-references *ngIf="!isSpecialPage()"></app-references> -->
-<app-contact-me *ngIf="!isSpecialPage()"></app-contact-me>
+@if (!isSpecialPage()) {
+  <app-contact-me></app-contact-me>
+}
 <app-footer></app-footer>
 
-<!-- 
+<!--
 
 Github worksflows and dependabot configuration files have been updated to
 enhance security and automate dependency management. The Angular CI workflow now
