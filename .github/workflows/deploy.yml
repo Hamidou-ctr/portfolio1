@@ -11,12 +11,12 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: "20.x"
+          node-version: "24.x"
           cache: "npm"
 
       - name: Install Dependencies
@@ -48,15 +48,13 @@ jobs:
 
       - name: Deploy to Server
         run: |
-          # Create a timestamp for backup
-          TIMESTAMP=$(date +%Y%m%d_%H%M%S)
-
           # SSH into server and deploy
           ssh -o StrictHostKeyChecking=no ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} << 'EOF'
             cd ${{ secrets.DEPLOY_PATH }}
             
             # Create backup of current version
             echo "Creating backup..."
+            TIMESTAMP=$(date +%Y%m%d_%H%M%S)
             tar -czf ../../backups/backup_${TIMESTAMP}.tar.gz .
             
             # Clean up directory but keep PHP files and specific folders
