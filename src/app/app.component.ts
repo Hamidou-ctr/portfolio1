@@ -1,20 +1,29 @@
 import {
-  Component,
-  HostListener,
+  AfterViewInit,
   ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  HostListener,
+  inject,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import * as AOS from 'aos';
 
-import { RouterOutlet, Router, ActivatedRoute } from '@angular/router';
-import { AfterViewInit } from '@angular/core';
-import { HeaderComponent } from './header/header.component';
-import { HomePageComponent } from './home-page/home-page.component';
 import { AboutMeComponent } from './about-me/about-me.component';
-import { MySkillsComponent } from './my-skills/my-skills.component';
-import { PortfolioComponent } from './portfolio/portfolio.component';
-import { ReferencesComponent } from './references/references.component';
 import { ContactMeComponent } from './contact-me/contact-me.component';
 import { FooterComponent } from './footer/footer.component';
-import * as AOS from 'aos';
+import { HeaderComponent } from './header/header.component';
+import { HomePageComponent } from './home-page/home-page.component';
+import { MySkillsComponent } from './my-skills/my-skills.component';
+import { PortfolioComponent } from './portfolio/portfolio.component';
+
+/** Routes that replace the one-page layout with a standalone page. */
+const SPECIAL_PAGES = ['/privacy-policy', '/legal-notice'];
+
+const SCROLL_OFFSET_PX = 100;
+const HOVER_EFFECT_DURATION_MS = 300;
+const AOS_REFRESH_DELAY_MS = 300;
 
 @Component({
   selector: 'app-root',
@@ -35,35 +44,22 @@ import * as AOS from 'aos';
 export class AppComponent implements AfterViewInit {
   title = 'Portfolio';
 
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-  ) {}
+  private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
+  private readonly destroyRef = inject(DestroyRef);
 
   ngAfterViewInit(): void {
     AOS.init();
 
-    this.route.queryParams.subscribe((params) => {
-      const section = params['scrollTo'];
-      if (section) {
-        setTimeout(() => {
-          const el = document.getElementById(section);
-          if (el) {
-            const offset =
-              el.getBoundingClientRect().top + window.pageYOffset - 100;
-            window.scrollTo({ top: offset, behavior: 'smooth' });
-          }
-        }, 10);
-      }
-    });
-    setTimeout(() => AOS.refresh(), 300);
+    this.route.queryParams
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((params) => this.scrollToSection(params['scrollTo']));
+
+    setTimeout(() => AOS.refresh(), AOS_REFRESH_DELAY_MS);
   }
 
   isSpecialPage(): boolean {
-    return (
-      this.router.url.includes('/privacy-policy') ||
-      this.router.url.includes('/legal-notice')
-    );
+    return SPECIAL_PAGES.some((page) => this.router.url.includes(page));
   }
 
   @HostListener('document:click', ['$event'])
@@ -78,14 +74,32 @@ export class AppComponent implements AfterViewInit {
   triggerHoverEffect(): void {
     const clickableElements = document.querySelectorAll('.clickable');
 
-    clickableElements.forEach((element) => {
-      element.classList.add('hover-effect');
-    });
+    clickableElements.forEach((element) =>
+      element.classList.add('hover-effect'),
+    );
 
     setTimeout(() => {
-      clickableElements.forEach((element) => {
-        element.classList.remove('hover-effect');
-      });
-    }, 300);
+      clickableElements.forEach((element) =>
+        element.classList.remove('hover-effect'),
+      );
+    }, HOVER_EFFECT_DURATION_MS);
+  }
+
+  private scrollToSection(sectionId: string | undefined): void {
+    if (!sectionId) {
+      return;
+    }
+
+    // Wait one tick so the target section is rendered.
+    setTimeout(() => {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        const top =
+          element.getBoundingClientRect().top +
+          window.scrollY -
+          SCROLL_OFFSET_PX;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    }, 10);
   }
 }
