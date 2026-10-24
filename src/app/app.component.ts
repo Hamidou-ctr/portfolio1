@@ -22,6 +22,7 @@ import { HeaderComponent } from './header/header.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { MySkillsComponent } from './my-skills/my-skills.component';
 import { PortfolioComponent } from './portfolio/portfolio.component';
+import { ReferencesComponent } from './references/references.component';
 
 /** Routes that replace the one-page layout with a standalone page. */
 const SPECIAL_PAGES = ['/privacy-policy', '/legal-notice'];
@@ -39,6 +40,7 @@ const AOS_REFRESH_DELAY_MS = 300;
     AboutMeComponent,
     MySkillsComponent,
     PortfolioComponent,
+    ReferencesComponent,
     ContactMeComponent,
     FooterComponent,
   ],
