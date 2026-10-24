@@ -1,28 +1,44 @@
-import { Component, HostListener, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 
 import { RouterOutlet, Router, ActivatedRoute } from '@angular/router';
 import { AfterViewInit } from '@angular/core';
-import { HeaderComponent } from "./header/header.component";
+import { HeaderComponent } from './header/header.component';
 import { HomePageComponent } from './home-page/home-page.component';
-import { AboutMeComponent } from "./about-me/about-me.component";
-import { MySkillsComponent } from "./my-skills/my-skills.component";
-import { PortfolioComponent } from "./portfolio/portfolio.component";
-import { ReferencesComponent } from "./references/references.component";
-import { ContactMeComponent } from "./contact-me/contact-me.component";
+import { AboutMeComponent } from './about-me/about-me.component';
+import { MySkillsComponent } from './my-skills/my-skills.component';
+import { PortfolioComponent } from './portfolio/portfolio.component';
+import { ReferencesComponent } from './references/references.component';
+import { ContactMeComponent } from './contact-me/contact-me.component';
 import { FooterComponent } from './footer/footer.component';
 import * as AOS from 'aos';
 
 @Component({
-    selector: 'app-root',
-    imports: [RouterOutlet, HeaderComponent, HomePageComponent, AboutMeComponent, MySkillsComponent, PortfolioComponent, ContactMeComponent, FooterComponent],
-    templateUrl: './app.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
-    styleUrl: './app.component.scss'
+  selector: 'app-root',
+  imports: [
+    RouterOutlet,
+    HeaderComponent,
+    HomePageComponent,
+    AboutMeComponent,
+    MySkillsComponent,
+    PortfolioComponent,
+    ContactMeComponent,
+    FooterComponent,
+  ],
+  templateUrl: './app.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrl: './app.component.scss',
 })
 export class AppComponent implements AfterViewInit {
   title = 'Portfolio';
 
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+  ) {}
 
   ngAfterViewInit(): void {
     AOS.init();
@@ -33,7 +49,8 @@ export class AppComponent implements AfterViewInit {
         setTimeout(() => {
           const el = document.getElementById(section);
           if (el) {
-            const offset = el.getBoundingClientRect().top + window.pageYOffset - 100;
+            const offset =
+              el.getBoundingClientRect().top + window.pageYOffset - 100;
             window.scrollTo({ top: offset, behavior: 'smooth' });
           }
         }, 10);
@@ -43,10 +60,11 @@ export class AppComponent implements AfterViewInit {
   }
 
   isSpecialPage(): boolean {
-    return this.router.url.includes('/privacy-policy') ||
-      this.router.url.includes('/legal-notice');
+    return (
+      this.router.url.includes('/privacy-policy') ||
+      this.router.url.includes('/legal-notice')
+    );
   }
-
 
   @HostListener('document:click', ['$event'])
   handleDocumentClick(event: MouseEvent): void {
@@ -60,12 +78,12 @@ export class AppComponent implements AfterViewInit {
   triggerHoverEffect(): void {
     const clickableElements = document.querySelectorAll('.clickable');
 
-    clickableElements.forEach(element => {
+    clickableElements.forEach((element) => {
       element.classList.add('hover-effect');
     });
 
     setTimeout(() => {
-      clickableElements.forEach(element => {
+      clickableElements.forEach((element) => {
         element.classList.remove('hover-effect');
       });
     }, 300);

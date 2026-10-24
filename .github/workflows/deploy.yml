@@ -1,23 +1,38 @@
 name: Deploy Angular App to Production
 
 on:
-  push:
+  workflow_run:
+    workflows: ["Angular CI"]
+    types: [completed]
     branches: [main, master]
   workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment: production
+    # Nur deployen, wenn die CI erfolgreich war (oder manuell gestartet)
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "24.x"
-          cache: "npm"
+          node-version-file: .nvmrc
+          cache: npm
 
       - name: Install Dependencies
         run: npm ci
@@ -45,11 +60,12 @@ jobs:
 
           # SSH known hosts
           ssh-keyscan -H ${{ secrets.DEPLOY_HOST }} >> ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
 
       - name: Deploy to Server
         run: |
           # SSH into server and deploy
-          ssh -o StrictHostKeyChecking=no ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} << 'EOF'
+          ssh ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} << 'EOF'
             cd ${{ secrets.DEPLOY_PATH }}
             
             # Create backup of current version
@@ -68,16 +84,16 @@ jobs:
 
           # Copy new build files to server
           echo "Copying new files..."
-          scp -r -o StrictHostKeyChecking=no deploy_temp/* ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:${{ secrets.DEPLOY_PATH }}/
+          scp -r deploy_temp/* ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:${{ secrets.DEPLOY_PATH }}/
 
           # Copy assets folder if it exists
           if [ -d "deploy_temp/assets" ]; then
             echo "Copying assets..."
-            scp -r -o StrictHostKeyChecking=no deploy_temp/assets ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:${{ secrets.DEPLOY_PATH }}/
+            scp -r deploy_temp/assets ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:${{ secrets.DEPLOY_PATH }}/
           fi
 
           # Set proper permissions on server
-          ssh -o StrictHostKeyChecking=no ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} << 'EOF'
+          ssh ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} << 'EOF'
             cd ${{ secrets.DEPLOY_PATH }}
             
             echo "Setting permissions..."
