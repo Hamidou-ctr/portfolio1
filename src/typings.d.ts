@@ -7,7 +7,7 @@ declare module 'aos' {
       mirror?: boolean;
     }): void;
     refresh(): void;
-    //refreshHard(): void;
+    refreshHard(): void;
   };
   export = aos;
 }
