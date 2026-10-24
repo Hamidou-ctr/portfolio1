@@ -22,12 +22,12 @@ import { HeaderComponent } from './header/header.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { MySkillsComponent } from './my-skills/my-skills.component';
 import { PortfolioComponent } from './portfolio/portfolio.component';
+import { scrollToId } from './scroll.util';
 import { ReferencesComponent } from './references/references.component';
 
 /** Routes that replace the one-page layout with a standalone page. */
 const SPECIAL_PAGES = ['/privacy-policy', '/legal-notice'];
 
-const SCROLL_OFFSET_PX = 100;
 const HOVER_EFFECT_DURATION_MS = 300;
 const AOS_REFRESH_DELAY_MS = 300;
 
@@ -75,7 +75,10 @@ export class AppComponent {
 
     this.route.queryParams
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((params) => this.scrollToSection(params['scrollTo']));
+      .subscribe(({ scrollTo }) => {
+        // Wait one tick so the target section is rendered.
+        if (scrollTo) setTimeout(() => scrollToId(scrollTo), 10);
+      });
   }
 
   protected handleDocumentClick(event: MouseEvent): void {
@@ -98,23 +101,5 @@ export class AppComponent {
         element.classList.remove('hover-effect'),
       );
     }, HOVER_EFFECT_DURATION_MS);
-  }
-
-  private scrollToSection(sectionId: string | undefined): void {
-    if (!sectionId) {
-      return;
-    }
-
-    // Wait one tick so the target section is rendered.
-    setTimeout(() => {
-      const element = document.getElementById(sectionId);
-      if (element) {
-        const top =
-          element.getBoundingClientRect().top +
-          window.scrollY -
-          SCROLL_OFFSET_PX;
-        window.scrollTo({ top, behavior: 'smooth' });
-      }
-    }, 10);
   }
 }

@@ -9,66 +9,12 @@
     data-aos-easing="ease-in-out"
     data-aos-anchor-placement="top-center"
   >
-      <div>
-        <img class="language-image" src="assets/img/html_icons.png" alt="" />
-        <p>HTML</p>
-      </div>
-      <div>
-        <img class="language-image" src="assets/img/css_icons.png" alt="" />
-        <p>CSS</p>
-      </div>
-      <div>
-        <img
-          class="language-image"
-          src="assets/img/javascript_icons.png"
-          alt=""
-        />
-        <p>JavaScript</p>
-      </div>
-      <div>
-        <img
-          class="language-image"
-          src="assets/img/typescript_icons.png"
-          alt=""
-        />
-        <p>TypeScript</p>
-      </div>
-      <div>
-        <img class="language-image" src="assets/img/angular_icons.png" alt="" />
-        <p>Angular</p>
-      </div>
-      <div>
-        <img
-          class="language-image"
-          src="assets/img/firebase_icons.png"
-          alt=""
-        />
-        <p>Firebase</p>
-      </div>
-      <div>
-        <img class="language-image" src="assets/img/git_icons.png" alt="" />
-        <p>Git</p>
-      </div>
-      <div>
-        <img
-          class="language-image"
-          src="assets/img/rest_api_icons.png"
-          alt=""
-        />
-        <p>Res Api</p>
-      </div>
-      <div>
-        <img class="language-image" src="assets/img/scrum_icons.png" alt="" />
-        <p>Scrum</p>
-      </div>
-      <div>
-        <img
-          class="language-image"
-          src="assets/img/material_design_icons.png"
-          alt=""
-        />
-        <p>Material Design</p>
-      </div>
+      @for (skill of skills; track skill.icon) {
+        <div>
+          <img class="language-image" [src]="'assets/img/' + skill.icon + '_icons.png'" alt="" />
+          <p>{{ skill.label }}</p>
+        </div>
+      }
 
       <div
         class="skill-item"
@@ -100,8 +46,7 @@
       <span class="show-mobile content-show-mobile">
         <h2
           data-aos="flip-left"
-          data-aos-easing="ease-out-cubic"
-          data-aos-duration="2000"
+          data-aos-easing="ease-out-cubic" data-aos-duration="2000"
         >
           {{ "SkillsComponent.skills_description2" | translate }}
           <h2>{{ "SkillsComponent.skills_description3" | translate }}</h2>
@@ -112,8 +57,7 @@
           class="clickable"
           (click)="scrollToContactSection()"
           data-aos="flip-left"
-          data-aos-easing="ease-out-cubic"
-          data-aos-duration="2000"
+          data-aos-easing="ease-out-cubic" data-aos-duration="2000"
         >
           {{ "SkillsComponent.button_scroll_To_Reference" | translate }}
         </button>
@@ -130,18 +74,10 @@
         <h1>{{ "SkillsComponent.skills" | translate }}</h1>
         <span> {{ "SkillsComponent.skills_description" | translate }} </span>
 
-        <!--  Show that you have used a variety of front-end technologies in your
-      projects. 
-      
-        //"skills_description": "I am proficient in a variety of programming languages and frameworks, including HTML, CSS, JavaScript, React, and more. My expertise extends to responsive design, ensuring that applications look great on all devices. I am also familiar with version control systems like Git, which allows for efficient collaboration and code management.",
-
-      -->
-
       <div class="show-desktop content-show-desktop">
         <h2
           data-aos="flip-left"
-          data-aos-easing="ease-out-cubic"
-          data-aos-duration="2000"
+          data-aos-easing="ease-out-cubic" data-aos-duration="2000"
         >
             {{ "SkillsComponent.skills_description2" | translate }}
             <h2>{{ "SkillsComponent.skills_description3" | translate }}</h2>
@@ -152,8 +88,7 @@
           class="clickable"
           (click)="scrollToContactSection()"
           data-aos="flip-left"
-          data-aos-easing="ease-out-cubic"
-          data-aos-duration="2000"
+          data-aos-easing="ease-out-cubic" data-aos-duration="2000"
         >
             {{ "SkillsComponent.button_scroll_To_Reference" | translate }}
           </button>
