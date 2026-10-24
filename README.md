@@ -1,27 +1,76 @@
-# Portfolio
+# Portfolio – Hamidou Diallo
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.6.
+Personal portfolio of Hamidou Diallo, frontend developer. One-page site with an
+about section, skills, selected projects and a contact form, available in
+German and English.
 
-## Development server
+**Live:** [hamidoudiallo.de](https://hamidoudiallo.de)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Features
 
-## Code scaffolding
+- One-page layout with smooth scrolling and scroll animations ([AOS](https://michalsnik.github.io/aos/))
+- Language switch DE / EN with [ngx-translate](https://github.com/ngx-translate/core) (`src/assets/de.json`, `src/assets/en.json`)
+- Contact form with validation, sent through [Formspree](https://formspree.io)
+- Responsive design (mobile, tablet, desktop)
+- Lazy-loaded legal pages (privacy policy, legal notice)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Tech stack
 
-## Build
+| Area      | Technology                                                     |
+| --------- | -------------------------------------------------------------- |
+| Framework | Angular 22 – standalone components, signals, zoneless, OnPush  |
+| Language  | TypeScript, SCSS                                               |
+| i18n      | ngx-translate                                                  |
+| Testing   | Karma + Jasmine                                                |
+| CI/CD     | GitHub Actions (build, test, deploy)                           |
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Getting started
 
-## Running unit tests
+**Requirements:** Node.js as defined in [`.nvmrc`](.nvmrc) (`nvm use`) and npm.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```bash
+git clone https://github.com/Hamidou-ctr/portfolio1.git
+cd portfolio1
+npm install
+npm start
+```
 
-## Running end-to-end tests
+The app runs on <http://localhost:4200/> and reloads on every change.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Scripts
 
-## Further help
+| Command         | Description                                  |
+| --------------- | -------------------------------------------- |
+| `npm start`     | Dev server on port 4200                      |
+| `npm run build` | Production build into `dist/portfolio`       |
+| `npm run watch` | Development build in watch mode              |
+| `npm test`      | Unit tests with Karma                        |
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Project structure
+
+```text
+src/
+├── app/
+│   ├── header/          navigation, language switch
+│   ├── home-page/       hero section
+│   ├── about-me/
+│   ├── my-skills/
+│   ├── portfolio/       project list
+│   ├── contact-me/      contact form
+│   ├── footer/
+│   ├── legal-notice/    lazy-loaded route
+│   ├── privacy-policy/  lazy-loaded route
+│   └── service/         ScrollService
+├── assets/              images and translation files
+└── testing/             shared test providers
+```
+
+## Projects shown in the portfolio
+
+- **Join** – Kanban board (JavaScript, Firebase)
+- **El Pollo Loco** – browser game (JavaScript)
+- **DA Bubble** – chat app (Angular, TypeScript, Firebase)
+
+## Contact
+
+Hamidou Diallo – [hamiduguinea@gmail.com](mailto:hamiduguinea@gmail.com) – [GitHub](https://github.com/Hamidou-ctr)
