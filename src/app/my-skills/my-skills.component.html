@@ -72,10 +72,10 @@
 
       <div
         class="skill-item"
-        (mouseenter)="isHovered = true"
-        (mouseleave)="isHovered = false"
+        (mouseenter)="isHovered.set(true)"
+        (mouseleave)="isHovered.set(false)"
       >
-        @if (!isHovered) {
+        @if (!isHovered()) {
         <div class="skill-subitem1">
           <img
             class="continually-learning-image"

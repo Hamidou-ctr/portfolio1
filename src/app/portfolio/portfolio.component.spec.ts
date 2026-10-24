@@ -1,3 +1,4 @@
+import { provideTestingDefaults } from '../../testing/test-providers';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PortfolioComponent } from './portfolio.component';
@@ -8,7 +9,8 @@ describe('PortfolioComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PortfolioComponent]
+      imports: [PortfolioComponent],
+      providers: [provideTestingDefaults()],
     })
     .compileComponents();
     

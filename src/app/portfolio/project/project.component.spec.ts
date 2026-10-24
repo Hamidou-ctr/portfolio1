@@ -1,3 +1,4 @@
+import { provideTestingDefaults } from '../../../testing/test-providers';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProjectComponent } from './project.component';
@@ -9,6 +10,7 @@ describe('ProjectComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ProjectComponent],
+      providers: [provideTestingDefaults()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ProjectComponent);

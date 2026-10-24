@@ -1,24 +1,17 @@
-
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Location } from '@angular/common';
+import { Component, inject } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-    selector: 'app-legal-notice',
-    imports: [TranslateModule],
-    templateUrl: './legal-notice.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
-    styleUrl: './legal-notice.component.scss'
+  selector: 'app-legal-notice',
+  imports: [TranslateModule],
+  templateUrl: './legal-notice.component.html',
+  styleUrl: './legal-notice.component.scss',
 })
-export class LegalNoticeComponent implements OnInit {
+export class LegalNoticeComponent {
+  private readonly location = inject(Location);
 
-  constructor(private location: Location) { }
-
-  ngOnInit(): void {
-    window.scrollTo(0, 0);  // Scrollt zum Seitenanfang
-  }
-
-  goBack() {
+  protected goBack(): void {
     this.location.back();
   }
 }

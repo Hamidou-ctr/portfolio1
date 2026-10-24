@@ -1,25 +1,14 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
-@Component({
-  selector: 'app-service',
-  imports: [],
-  templateUrl: './service.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrl: './service.component.scss',
-})
-@Injectable({
-  providedIn: 'root',
-})
-export class service {
-  private scrollToReferenceSubject = new Subject<void>();
+@Injectable({ providedIn: 'root' })
+export class ScrollService {
+  private readonly scrollToReferenceSubject = new Subject<void>();
 
-  // Observable, um das Scrollen auszulösen
-  scrollToReference$ = this.scrollToReferenceSubject.asObservable();
+  /** Emits whenever a component asks the references section to scroll into view. */
+  readonly scrollToReference$ = this.scrollToReferenceSubject.asObservable();
 
-  // Methode, um das Scrollen zu triggern
-  scrollToReference() {
+  scrollToReference(): void {
     this.scrollToReferenceSubject.next();
   }
 }

@@ -1,3 +1,4 @@
+import { provideTestingDefaults } from '../../testing/test-providers';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MySkillsComponent } from './my-skills.component';
@@ -8,7 +9,8 @@ describe('MySkillsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MySkillsComponent]
+      imports: [MySkillsComponent],
+      providers: [provideTestingDefaults()],
     })
     .compileComponents();
     

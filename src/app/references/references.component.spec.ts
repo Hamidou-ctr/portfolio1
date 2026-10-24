@@ -1,3 +1,4 @@
+import { provideTestingDefaults } from '../../testing/test-providers';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ReferencesComponent } from './references.component';
@@ -8,7 +9,8 @@ describe('ReferencesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ReferencesComponent]
+      imports: [ReferencesComponent],
+      providers: [provideTestingDefaults()],
     })
     .compileComponents();
     

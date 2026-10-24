@@ -1,11 +1,11 @@
 <div class="overlay-main">
   <nav
     class="navbar-branding"
-    [ngClass]="{ 'navbar-branding--active': !showMenu }"
+    [class.navbar-branding--active]="!showMenu()"
     >
     <h1
       (click)="scrollToSection('home')"
-      [class.hidden]="showMenu"
+      [class.hidden]="showMenu()"
       class="clickable"
       >
       Hamidou
@@ -15,19 +15,19 @@
       <div class="navbar-header">
         <a
           class="navbar-brand clickable"
-          [class.active]="selectedSection === 'aboutMe'"
+          [class.active]="selectedSection() === 'aboutMe'"
           (click)="scrollToSection('aboutMe')"
           >{{ "HeaderComponent.ABOUT_ME" | translate }}</a
           >
           <a
             class="clickable"
-            [class.active]="selectedSection === 'skills'"
+            [class.active]="selectedSection() === 'skills'"
             (click)="scrollToSection('skills')"
             >{{ "HeaderComponent.SKILLS" | translate }}</a
             >
             <a
               class="clickable"
-              [class.active]="selectedSection === 'portfolio'"
+              [class.active]="selectedSection() === 'portfolio'"
               (click)="scrollToSection('portfolio')"
               >{{ "HeaderComponent.PORTFOLIO" | translate }}</a
               >
@@ -37,21 +37,21 @@
               <button
                 class="clickable"
                 (click)="changeLanguage('de')"
-                [class.active]="currentLanguage === 'de'"
+                [class.active]="currentLanguage() === 'de'"
                 >
                 DE
               </button>
               <button
                 class="clickable"
                 (click)="changeLanguage('en')"
-                [class.active]="currentLanguage === 'en'"
+                [class.active]="currentLanguage() === 'en'"
                 >
                 EN
               </button>
               <!-- <button
               class="clickable"
               (click)="changeLanguage('fr')"
-              [class.active]="currentLanguage === 'fr'"
+              [class.active]="currentLanguage() === 'fr'"
               >
               FR
             </button> -->
@@ -59,7 +59,7 @@
         </div>
 
         <img
-          [class.hidden]="showMenu"
+          [class.hidden]="showMenu()"
           class="clickable"
           src="assets/img/burger_menu.png"
           alt="Menu"
@@ -68,7 +68,7 @@
       </nav>
     </div>
 
-    @if (showMenu) {
+    @if (showMenu()) {
       <div class="overlay">
         <div class="overlay-header">
           <h1
@@ -99,21 +99,21 @@
           <div class="overlay-footer">
             <span
               (click)="changeLanguage('de')"
-              [class.active]="currentLanguage === 'de'"
+              [class.active]="currentLanguage() === 'de'"
               >
               DE
             </span>
             /
             <span
               (click)="changeLanguage('en')"
-              [class.active]="currentLanguage === 'en'"
+              [class.active]="currentLanguage() === 'en'"
               >
               EN
             </span>
             <!-- /
             <span
               (click)="changeLanguage('fr')"
-              [class.active]="currentLanguage === 'fr'"
+              [class.active]="currentLanguage() === 'fr'"
               >
               FR
             </span> -->

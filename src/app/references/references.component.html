@@ -1,6 +1,6 @@
 <div #refereceSection class="container">
-  @for (section of sections; track section; let i = $index) {
-    <section [ngClass]="{'active': currentIndex === i}">
+  @for (section of sections; track $index; let i = $index) {
+    <section [class.active]="currentIndex() === i">
       <main>
         <img src="assets/img/purple_reference.png" alt="">
         <span>{{ section.text }}</span>
@@ -18,14 +18,14 @@
 </div>
 
 <menu>
-  <img src="assets/img/left.png" alt="" (click)="previousSection()" [ngClass]="{'disabled': currentIndex === 0}" />
-  @for (section of sections; track section; let i = $index) {
-    <p [ngClass]="{'active': currentIndex === i}"></p>
+  <img src="assets/img/left.png" alt="" (click)="previousSection()" [class.disabled]="currentIndex() === 0" />
+  @for (section of sections; track $index; let i = $index) {
+    <p [class.active]="currentIndex() === i"></p>
   }
   <img
     src="assets/img/right.png"
     alt=""
     (click)="nextSection()"
-    [ngClass]="{'disabled': currentIndex === sections.length - 1}"
+    [class.disabled]="currentIndex() === sections.length - 1"
     />
 </menu>

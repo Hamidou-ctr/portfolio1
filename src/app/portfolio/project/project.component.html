@@ -1,11 +1,12 @@
 <div class="overlay">
-  @for (project of projects; track project; let i = $index) {
+  @for (project of projects; track project.name; let i = $index) {
     <section
-      [ngClass]="{ left: i % 2 === 0, right: i % 2 !== 0 }"
+      [class.left]="i % 2 === 0"
+      [class.right]="i % 2 !== 0"
       >
       <img
         [src]="project.imageUrl"
-        alt="{{ project.name }}"
+        [alt]="project.name | translate"
         data-aos="flip-left"
         data-aos-easing="ease-out-cubic"
         data-aos-duration="1000"
@@ -26,16 +27,14 @@
           <a
             target="_blank"
             [href]="project.liveTestUrl"
-            class="project-link"
-            [ngClass]="{ test: true }"
+            class="project-link test"
             >
             {{ "ProjectsComponent.live_test_button" | translate }}
           </a>
           <a
             target="_blank"
             [href]="project.githubUrl"
-            class="project-link"
-            [ngClass]="{ GitHub: true }"
+            class="project-link GitHub"
             >GitHub</a
             >
           </span>

@@ -1,23 +1,20 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-
+import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-    selector: 'app-home-page',
-    imports: [TranslateModule],
-    templateUrl: './home-page.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
-    styleUrl: './home-page.component.scss'
+  selector: 'app-home-page',
+  imports: [TranslateModule],
+  templateUrl: './home-page.component.html',
+  styleUrl: './home-page.component.scss',
 })
 export class HomePageComponent {
-  scrollToContact() {
-    const contactSection = document.getElementById('contact-section');
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' });
-    }
+  protected scrollToContact(): void {
+    document
+      .getElementById('contact-section')
+      ?.scrollIntoView({ behavior: 'smooth' });
   }
-  
-  scrollToBottom() {
+
+  protected scrollToBottom(): void {
     window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
   }
 }

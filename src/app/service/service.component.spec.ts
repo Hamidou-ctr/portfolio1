@@ -1,22 +1,15 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
-import { ServiceComponent } from './service.component';
+import { ScrollService } from './service.component';
 
-describe('ServiceComponent', () => {
-  let component: ServiceComponent;
-  let fixture: ComponentFixture<ServiceComponent>;
+describe('ScrollService', () => {
+  it('should emit when scrollToReference is called', () => {
+    const service = TestBed.inject(ScrollService);
+    let emitted = 0;
+    service.scrollToReference$.subscribe(() => emitted++);
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [ServiceComponent],
-    }).compileComponents();
+    service.scrollToReference();
 
-    fixture = TestBed.createComponent(ServiceComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(emitted).toBe(1);
   });
 });

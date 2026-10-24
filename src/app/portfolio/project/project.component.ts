@@ -1,16 +1,23 @@
-import { CommonModule } from '@angular/common';
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
+
+interface Project {
+  imageUrl: string;
+  name: string;
+  language: string;
+  description: string;
+  liveTestUrl: string;
+  githubUrl: string;
+}
 
 @Component({
   selector: 'app-project',
-  imports: [CommonModule, TranslateModule],
+  imports: [TranslateModule],
   templateUrl: './project.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './project.component.scss',
 })
 export class ProjectComponent {
-  projects = [
+  protected readonly projects: readonly Project[] = [
     {
       imageUrl: 'assets/img/join.svg',
       name: 'ProjectsComponent.join_Projects.title',
@@ -19,7 +26,6 @@ export class ProjectComponent {
       liveTestUrl: 'https://join.hamidoudiallo.de/',
       githubUrl: 'https://github.com/Hamidou-ctr/join_frontend',
     },
-
     {
       imageUrl: 'assets/img/Pollo_loco.svg',
       name: 'ProjectsComponent.Pollo_Loco_Projects.title',
@@ -28,7 +34,6 @@ export class ProjectComponent {
       liveTestUrl: 'https://pollo-loco.hamidoudiallo.de/',
       githubUrl: 'https://github.com/Hamidou-ctr/pollo-loco',
     },
-
     {
       imageUrl: 'assets/img/da-babble.svg',
       name: 'ProjectsComponent.da_bubble_Projects.title',

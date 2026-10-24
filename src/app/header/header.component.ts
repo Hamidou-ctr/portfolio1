@@ -1,52 +1,35 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-
+import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
-import { TranslateService } from '@ngx-translate/core';
-import { TranslateModule } from '@ngx-translate/core';
+const NAVBAR_OFFSET_PX = 100;
 
 @Component({
-    selector: 'app-header',
-    imports: [CommonModule, TranslateModule],
-    templateUrl: './header.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
-    styleUrls: ['./header.component.scss']
+  selector: 'app-header',
+  imports: [TranslateModule],
+  templateUrl: './header.component.html',
+  styleUrl: './header.component.scss',
 })
-export class HeaderComponent implements OnInit {
-  private readonly NAVBAR_OFFSET = 100; 
-  currentLanguage: string = 'de';
+export class HeaderComponent {
+  private readonly translate = inject(TranslateService);
+  private readonly router = inject(Router);
 
-  constructor(private translate: TranslateService , private router: Router) {
-    this.translate.setDefaultLang('de');
-  }
+  protected readonly currentLanguage = signal('de');
+  protected readonly showMenu = signal(false);
+  protected readonly selectedSection = signal<string | null>(null);
 
-  changeLanguage(lang: string) {
+  protected changeLanguage(lang: string): void {
     this.translate.use(lang);
-    this.currentLanguage = lang;
+    this.currentLanguage.set(lang);
   }
 
-  ngOnInit() {
-     this.currentLanguage = this.translate.getDefaultLang() ?? this.currentLanguage;
+  protected toggleMenu(): void {
+    this.showMenu.update((open) => !open);
   }
 
-  showMenu = false;
-  isHidden = false;
-  selectedSection: string | null = null;
-
-  toggleMenu() {
-    this.showMenu = !this.showMenu;
-    this.isHidden = !this.isHidden;
-    //document.body.style.overflow = this.showMenu ? 'hidden' : '';
-  }
-
-  closeMenu() {
-    this.showMenu = false;
-  }
-
-  scrollToSection(sectionId: string) {
-    this.selectedSection = sectionId;
-    this.closeMenu();
+  protected scrollToSection(sectionId: string): void {
+    this.selectedSection.set(sectionId);
+    this.showMenu.set(false);
 
     if (this.router.url === '/') {
       this.smoothScroll(sectionId);
@@ -54,17 +37,16 @@ export class HeaderComponent implements OnInit {
       this.router.navigate(['/'], { queryParams: { scrollTo: sectionId } });
     }
   }
-  
-  private smoothScroll(sectionId: string) {
+
+  private smoothScroll(sectionId: string): void {
     const element = document.getElementById(sectionId);
     if (element) {
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - this.NAVBAR_OFFSET;
-  
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth',
-      });
+      const top =
+        element.getBoundingClientRect().top +
+        window.scrollY -
+        NAVBAR_OFFSET_PX;
+
+      window.scrollTo({ top, behavior: 'smooth' });
     }
   }
 }

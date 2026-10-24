@@ -1,14 +1,19 @@
 import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
+  afterNextRender,
   Component,
+  computed,
   DestroyRef,
-  HostListener,
   inject,
 } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  Router,
+  RouterOutlet,
+} from '@angular/router';
 import * as AOS from 'aos';
+import { filter, map } from 'rxjs';
 
 import { AboutMeComponent } from './about-me/about-me.component';
 import { ContactMeComponent } from './contact-me/contact-me.component';
@@ -38,32 +43,40 @@ const AOS_REFRESH_DELAY_MS = 300;
     FooterComponent,
   ],
   templateUrl: './app.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './app.component.scss',
+  host: { '(document:click)': 'handleDocumentClick($event)' },
 })
-export class AppComponent implements AfterViewInit {
-  title = 'Portfolio';
+export class AppComponent {
+  readonly title = 'Portfolio';
 
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
   private readonly destroyRef = inject(DestroyRef);
 
-  ngAfterViewInit(): void {
-    AOS.init();
+  private readonly currentUrl = toSignal(
+    this.router.events.pipe(
+      filter((event) => event instanceof NavigationEnd),
+      map((event) => event.urlAfterRedirects),
+    ),
+    { initialValue: this.router.url },
+  );
+
+  protected readonly isSpecialPage = computed(() =>
+    SPECIAL_PAGES.some((page) => this.currentUrl().includes(page)),
+  );
+
+  constructor() {
+    afterNextRender(() => {
+      AOS.init();
+      setTimeout(() => AOS.refresh(), AOS_REFRESH_DELAY_MS);
+    });
 
     this.route.queryParams
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((params) => this.scrollToSection(params['scrollTo']));
-
-    setTimeout(() => AOS.refresh(), AOS_REFRESH_DELAY_MS);
   }
 
-  isSpecialPage(): boolean {
-    return SPECIAL_PAGES.some((page) => this.router.url.includes(page));
-  }
-
-  @HostListener('document:click', ['$event'])
-  handleDocumentClick(event: MouseEvent): void {
+  protected handleDocumentClick(event: MouseEvent): void {
     const target = event.target as HTMLElement;
 
     if (!target.classList.contains('clickable')) {
@@ -71,7 +84,7 @@ export class AppComponent implements AfterViewInit {
     }
   }
 
-  triggerHoverEffect(): void {
+  private triggerHoverEffect(): void {
     const clickableElements = document.querySelectorAll('.clickable');
 
     clickableElements.forEach((element) =>
