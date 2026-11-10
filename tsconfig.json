@@ -2,6 +2,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "rootDir": "./src",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -25,3 +26,9 @@
     "strictTemplates": true
   }
 }
+/*
+
+"rootDir": "./src",
+"outDir": "./dist/out-tsc",
+
+*/
